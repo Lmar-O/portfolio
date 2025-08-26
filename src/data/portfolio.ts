@@ -5,7 +5,7 @@ export const personalInfo: PersonalInfo = {
   title: "Software Engineer",
   description: "Passionate software engineer focused on creating innovative digital solutions and building scalable applications with modern technologies.",
   email: "hello@lmaroria.com",
-  location: "Open to Remote Opportunities",
+  location: "Open to Relocation or Remote Opportunities",
   socialLinks: [
     {
       platform: "GitHub",
@@ -24,56 +24,57 @@ export const personalInfo: PersonalInfo = {
     { name: "TypeScript", icon: "typescript" },
     { name: "React", icon: "react" },
     { name: "Python", icon: "python" },
+    { name: "Java", icon: "java" },
+    { name: "C", icon: "c" },
+    { name: "C#", icon: "csharp" },
     { name: "HTML/CSS", icon: "html" },
     { name: "Git", icon: "git" },
     { name: "Node.js", icon: "nodejs" },
-    { name: "MongoDB", icon: "database" },
     { name: "AWS", icon: "globe" },
-    { name: "Docker", icon: "code" }
+    { name: "Docker", icon: "code" },
+    { name: "MySQL", icon: "database" },
+
   ]
 };
 
 export const navigationItems: NavigationItem[] = [
   { id: "home", label: "Home", href: "#home" },
   { id: "about", label: "About", href: "#about" },
-  { id: "experience", label: "Experience", href: "#experience" },
+  //{ id: "experience", label: "Experience", href: "#experience" },
   { id: "projects", label: "Projects", href: "#projects" },
   { id: "contact", label: "Contact", href: "#contact" }
 ];
 
 export const projects: Project[] = [
   {
-    id: "portfolio-website",
-    title: "Portfolio Website",
-    description: "A modern, responsive personal portfolio website built with React, TypeScript, and Framer Motion. Features smooth animations, responsive design, and optimized performance.",
-    technologies: ["React", "TypeScript", "Framer Motion", "CSS", "Vite"],
-    githubUrl: "https://github.com/lmaroria/portfolio",
-    liveUrl: "https://lmaroria.com",
+    id: "maal-finance",
+    title: "Maal Finance",
+    description: "A full-stack personal finance education app for Muslims built with React, TypeScript, and Python. Features a user-friendly interface, responsive design, and a focus on financial education. Currently developing user authentication features",
+    technologies: ["React", "TypeScript", "Chart.js", "Python"],
+    githubUrl: "https://github.com/Lmar-O/maal",
+    liveUrl: "https://maalfinance.com",
     featured: true
   },
   {
-    id: "task-management",
-    title: "Task Management App",
-    description: "A full-stack task management application with user authentication, real-time updates, and collaborative features. Built with modern technologies and best practices.",
-    technologies: ["React", "Node.js", "MongoDB", "Express", "Socket.io"],
-    githubUrl: "https://github.com/lmaroria/task-manager",
-    featured: true
-  },
-  {
-    id: "e-commerce-api",
-    title: "E-Commerce REST API",
-    description: "A scalable RESTful API for an e-commerce platform with user management, product catalog, shopping cart, and payment integration. Includes comprehensive testing and documentation.",
-    technologies: ["Node.js", "Express", "MongoDB", "JWT", "Stripe API"],
-    githubUrl: "https://github.com/lmaroria/ecommerce-api",
+    id: "flybook",
+    title: "FlyBook",
+    description: "A full-stack e-commerce platform that enables users to browse, filter, and purchase books with real-time cart updates.",
+    technologies: ["JavaScript", "Node.js", "Express.js", "Bootstrap"],
+    githubUrl: "https://github.com/Lmar-O/Flybook",
     featured: false
   },
   {
-    id: "weather-dashboard",
-    title: "Weather Dashboard",
-    description: "An interactive weather dashboard with location-based forecasts, data visualization, and responsive design. Integrates with multiple weather APIs for accurate data.",
-    technologies: ["JavaScript", "Chart.js", "Weather API", "CSS Grid", "Local Storage"],
-    githubUrl: "https://github.com/lmaroria/weather-dashboard",
-    liveUrl: "https://lmaroria-weather.netlify.app",
+    id: "timely",
+    title: "Timely",
+    description: "An Android-based to-do list application focused on efficient task management and user-friendly functionality.",
+    technologies: ["Java", "Android Studio"],
+    featured: false
+  },
+  {
+    id: "haunt-and-seek",
+    title: "Haunt & Seek",
+    description: "A first-person 3D Unity game set in a haunted estate where players collect treasures while avoiding a ghost that resets the level on collision.",
+    technologies: ["C#", "Unity", "Blender", "Unity Editor"],
     featured: false
   }
 ];
