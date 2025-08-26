@@ -1,0 +1,142 @@
+.experience {
+  background: #ffffff;
+}
+
+.experience-content {
+  max-width: none;
+}
+
+.experience-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.experience-item {
+  padding: 2rem 0;
+  border-bottom: 1px solid #f8f8f8;
+}
+
+.experience-item:last-child {
+  border-bottom: none;
+}
+
+.experience-content-item {
+  max-width: 700px;
+}
+
+.experience-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+  gap: 1rem;
+}
+
+.experience-position {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #1a1a1a;
+  letter-spacing: -0.01em;
+}
+
+.experience-duration {
+  color: #8a8a8a;
+  font-size: 0.9rem;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.experience-company {
+  font-size: 1rem;
+  color: #6a6a6a;
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+
+.experience-description {
+  color: #6a6a6a;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+}
+
+.experience-technologies {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.tech-item {
+  color: #8a8a8a;
+  font-size: 0.85rem;
+  font-weight: 400;
+}
+
+.experience-achievements {
+  margin-top: 1rem;
+}
+
+.achievements-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.achievement-item {
+  color: #6a6a6a;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  position: relative;
+  padding-left: 1rem;
+}
+
+.achievement-item::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: #d0d0d0;
+}
+
+@media (max-width: 768px) {
+  .experience-list {
+    gap: 2rem;
+  }
+
+  .experience-item {
+    padding: 1.5rem 0;
+  }
+
+  .experience-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .experience-position {
+    font-size: 1.125rem;
+  }
+
+  .experience-technologies {
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .experience-item {
+    padding: 1rem 0;
+  }
+
+  .experience-technologies {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .tech-item {
+    font-size: 0.8rem;
+  }
+}

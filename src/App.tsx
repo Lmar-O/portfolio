@@ -4,8 +4,8 @@ import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import Hero from './components/sections/Hero';
 import About from './components/sections/About';
+import Experience from './components/sections/Experience';
 import Projects from './components/sections/Projects';
-import Photography from './components/sections/Photography';
 import Contact from './components/sections/Contact';
 import './App.css';
 
@@ -21,8 +21,8 @@ const App: React.FC = () => {
       >
         <Hero />
         <About />
+        <Experience />
         <Projects />
-        <Photography />
         <Contact />
       </motion.main>
       

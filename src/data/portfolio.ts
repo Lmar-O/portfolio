@@ -1,9 +1,9 @@
-import type { Project, PhotoItem, PersonalInfo, NavigationItem } from '../types';
+import type { Project, PersonalInfo, NavigationItem, Experience } from '../types';
 
 export const personalInfo: PersonalInfo = {
-  name: "LmarOria",
-  title: "Software Engineer & Photographer",
-  description: "Passionate about creating beautiful digital experiences and capturing life's moments through code and lens.",
+  name: "Lmar Oria",
+  title: "Software Engineer",
+  description: "Passionate software engineer focused on creating innovative digital solutions and building scalable applications with modern technologies.",
   email: "hello@lmaroria.com",
   location: "Open to Remote Opportunities",
   socialLinks: [
@@ -14,19 +14,10 @@ export const personalInfo: PersonalInfo = {
     },
     {
       platform: "LinkedIn",
-      url: "https://linkedin.com/in/lmaroria",
+      url: "https://linkedin.com/in/Lmar-O",
       icon: "linkedin"
     },
-    {
-      platform: "Instagram",
-      url: "https://instagram.com/lmaroria",
-      icon: "instagram"
-    },
-    {
-      platform: "Twitter",
-      url: "https://twitter.com/lmaroria",
-      icon: "twitter"
-    }
+
   ],
   skills: [
     { name: "JavaScript", icon: "javascript" },
@@ -35,16 +26,18 @@ export const personalInfo: PersonalInfo = {
     { name: "Python", icon: "python" },
     { name: "HTML/CSS", icon: "html" },
     { name: "Git", icon: "git" },
-    { name: "Photography", icon: "camera" },
-    { name: "Node.js", icon: "nodejs" }
+    { name: "Node.js", icon: "nodejs" },
+    { name: "MongoDB", icon: "database" },
+    { name: "AWS", icon: "globe" },
+    { name: "Docker", icon: "code" }
   ]
 };
 
 export const navigationItems: NavigationItem[] = [
   { id: "home", label: "Home", href: "#home" },
   { id: "about", label: "About", href: "#about" },
+  { id: "experience", label: "Experience", href: "#experience" },
   { id: "projects", label: "Projects", href: "#projects" },
-  { id: "photography", label: "Photography", href: "#photography" },
   { id: "contact", label: "Contact", href: "#contact" }
 ];
 
@@ -52,90 +45,73 @@ export const projects: Project[] = [
   {
     id: "portfolio-website",
     title: "Portfolio Website",
-    description: "A modern, responsive personal portfolio website built with React, TypeScript, and Framer Motion. Features smooth animations, a photography gallery, and optimized performance.",
-    technologies: ["React", "TypeScript", "Framer Motion", "CSS Modules", "Vite"],
+    description: "A modern, responsive personal portfolio website built with React, TypeScript, and Framer Motion. Features smooth animations, responsive design, and optimized performance.",
+    technologies: ["React", "TypeScript", "Framer Motion", "CSS", "Vite"],
     githubUrl: "https://github.com/lmaroria/portfolio",
     liveUrl: "https://lmaroria.com",
     featured: true
   },
   {
-    id: "learning-project",
-    title: "Learning Projects",
-    description: "Exciting projects coming soon as I continue my software engineering journey. Currently working on various tutorials and building my skills in modern web development.",
-    technologies: ["JavaScript", "React", "Python", "SQL"],
+    id: "task-management",
+    title: "Task Management App",
+    description: "A full-stack task management application with user authentication, real-time updates, and collaborative features. Built with modern technologies and best practices.",
+    technologies: ["React", "Node.js", "MongoDB", "Express", "Socket.io"],
+    githubUrl: "https://github.com/lmaroria/task-manager",
+    featured: true
+  },
+  {
+    id: "e-commerce-api",
+    title: "E-Commerce REST API",
+    description: "A scalable RESTful API for an e-commerce platform with user management, product catalog, shopping cart, and payment integration. Includes comprehensive testing and documentation.",
+    technologies: ["Node.js", "Express", "MongoDB", "JWT", "Stripe API"],
+    githubUrl: "https://github.com/lmaroria/ecommerce-api",
+    featured: false
+  },
+  {
+    id: "weather-dashboard",
+    title: "Weather Dashboard",
+    description: "An interactive weather dashboard with location-based forecasts, data visualization, and responsive design. Integrates with multiple weather APIs for accurate data.",
+    technologies: ["JavaScript", "Chart.js", "Weather API", "CSS Grid", "Local Storage"],
+    githubUrl: "https://github.com/lmaroria/weather-dashboard",
+    liveUrl: "https://lmaroria-weather.netlify.app",
     featured: false
   }
 ];
 
-// Placeholder photo data - replace with actual photos
-export const photoGallery: PhotoItem[] = [
+// Experience data for software engineering career
+export const experience: Experience[] = [
   {
-    id: "landscape-1",
-    src: "/api/placeholder/400/400",
-    alt: "Beautiful landscape photography",
-    category: "landscape",
-    title: "Mountain Vista",
-    description: "Captured during golden hour in the mountains"
-  },
-  {
-    id: "portrait-1",
-    src: "/api/placeholder/400/400",
-    alt: "Portrait photography",
-    category: "portrait",
-    title: "Urban Portrait",
-    description: "Street portrait with natural lighting"
-  },
-  {
-    id: "street-1",
-    src: "/api/placeholder/400/400",
-    alt: "Street photography",
-    category: "street",
-    title: "City Life",
-    description: "Candid moment captured on busy street"
-  },
-  {
-    id: "nature-1",
-    src: "/api/placeholder/400/400",
-    alt: "Nature photography",
-    category: "nature",
-    title: "Forest Path",
-    description: "Peaceful trail through ancient forest"
-  },
-  {
-    id: "portrait-2",
-    src: "/api/placeholder/400/400",
-    alt: "Creative portrait",
-    category: "portrait",
-    title: "Creative Portrait",
-    description: "Experimental lighting and composition"
-  },
-  {
-    id: "street-2",
-    src: "/api/placeholder/400/400",
-    alt: "Urban scene",
-    category: "street",
-    title: "Urban Geometry",
-    description: "Architectural patterns in the city"
+    id: "current-learning",
+    company: "Self-Directed Learning",
+    position: "Aspiring Software Engineer",
+    duration: "2024 - Present",
+    description: "Focused on building foundational skills in modern web development, algorithms, and software engineering best practices.",
+    technologies: ["JavaScript", "TypeScript", "React", "Node.js", "Python"],
+    achievements: [
+      "Built multiple full-stack applications",
+      "Completed comprehensive programming courses",
+      "Contributing to open source projects"
+    ]
   }
 ];
 
 export const aboutText = {
-  introduction: "I'm a passionate individual exploring the intersection of technology and creativity. Currently building my expertise in software engineering while pursuing my love for photography.",
-  journey: "Though I'm at the beginning of my professional journey, I'm committed to continuous learning and creating meaningful digital experiences. When I'm not coding, you'll find me behind the camera, capturing the world through a different lens.",
-  philosophy: "I believe in the power of combining technical skills with creative vision to build products that not only function well but also inspire and delight users."
+  introduction: "I'm a passionate software engineer dedicated to building innovative solutions and creating exceptional user experiences through clean, efficient code.",
+  journey: "I'm committed to continuous learning and staying current with the latest technologies and best practices. I enjoy tackling complex problems and collaborating with teams to deliver high-quality software solutions.",
+  philosophy: "I believe in writing maintainable code, following industry best practices, and creating applications that not only function well but also provide intuitive and delightful user experiences."
 };
 
 export const stats = [
   {
     number: "∞",
-    label: "Learning Mindset"
+    label: "Lines of Code"
   },
   {
-    number: "2",
-    label: "Passions Combined"
+    number: "10+",
+    label: "Technologies"
   },
   {
-    number: "1",
-    label: "Vision"
+    number: "100%",
+    label: "Dedication"
   }
 ];

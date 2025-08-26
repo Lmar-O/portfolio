@@ -11,6 +11,16 @@ export interface Project {
   featured?: boolean;
 }
 
+export interface Experience {
+  id: string;
+  company: string;
+  position: string;
+  duration: string;
+  description: string;
+  technologies: string[];
+  achievements?: string[];
+}
+
 export interface PhotoItem {
   id: string;
   src: string;
