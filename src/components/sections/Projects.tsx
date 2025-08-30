@@ -35,7 +35,7 @@ const Projects: React.FC = () => {
         viewport={{ once: true, margin: "-100px" }}
       >
         <motion.h2 className="section-title" variants={itemVariants}>
-          Selected Work
+          Projects
         </motion.h2>
 
         <div className="projects-list">

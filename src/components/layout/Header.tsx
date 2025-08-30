@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
-import { navigationItems } from '../../data/portfolio';
+import { Menu, X, Github, Linkedin } from 'lucide-react';
+import { navigationItems, personalInfo } from '../../data/portfolio';
 import './Header.css';
 
 const Header: React.FC = () => {
@@ -28,6 +28,17 @@ const Header: React.FC = () => {
     }
   };
 
+  const getSocialIcon = (iconName: string) => {
+    switch (iconName) {
+      case 'github':
+        return <Github size={20} />;
+      case 'linkedin':
+        return <Linkedin size={20} />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <motion.header
       className={`header ${isScrolled ? 'header-scrolled' : ''}`}
@@ -36,17 +47,20 @@ const Header: React.FC = () => {
       transition={{ duration: 0.6 }}
     >
       <div className="header-container">
-        <motion.a
-          href="#home"
-          className="logo"
-          onClick={() => handleLinkClick('#home')}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          Lmar Oria
-        </motion.a>
+        {/* Left section - Logo */}
+        <div className="header-left">
+          <motion.a
+            href="#home"
+            className="logo"
+            onClick={() => handleLinkClick('#home')}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Lmar Oria
+          </motion.a>
+        </div>
 
-        {/* Desktop Navigation */}
+        {/* Center Navigation */}
         <nav className="nav-desktop">
           {navigationItems.map((item) => (
             <motion.a
@@ -62,14 +76,33 @@ const Header: React.FC = () => {
           ))}
         </nav>
 
-        {/* Mobile Menu Button */}
-        <motion.button
-          className="mobile-menu-btn"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          whileTap={{ scale: 0.95 }}
-        >
-          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </motion.button>
+        {/* Right Social Icons */}
+        <div className="header-right">
+          <div className="social-icons">
+            {personalInfo.socialLinks.map((link) => (
+              <motion.a
+                key={link.platform}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-icon"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {getSocialIcon(link.icon)}
+              </motion.a>
+            ))}
+          </div>
+
+          {/* Mobile Menu Button */}
+          <motion.button
+            className="mobile-menu-btn"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            whileTap={{ scale: 0.95 }}
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </motion.button>
+        </div>
 
         {/* Mobile Navigation */}
         <AnimatePresence>
@@ -94,6 +127,25 @@ const Header: React.FC = () => {
                   {item.label}
                 </motion.a>
               ))}
+              
+              {/* Social links in mobile menu */}
+              <div className="social-icons-mobile">
+                {personalInfo.socialLinks.map((link) => (
+                  <motion.a
+                    key={link.platform}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="social-icon-mobile"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: navigationItems.length * 0.1 + 0.1 }}
+                  >
+                    {getSocialIcon(link.icon)}
+                    <span>{link.platform}</span>
+                  </motion.a>
+                ))}
+              </div>
             </motion.nav>
           )}
         </AnimatePresence>

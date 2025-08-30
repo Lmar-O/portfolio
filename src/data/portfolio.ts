@@ -9,12 +9,12 @@ export const personalInfo: PersonalInfo = {
   socialLinks: [
     {
       platform: "GitHub",
-      url: "https://github.com/lmaroria",
+      url: "https://github.com/Lmar-O",
       icon: "github"
     },
     {
       platform: "LinkedIn",
-      url: "https://linkedin.com/in/Lmar-O",
+      url: "https://linkedin.com/in/lmaroria",
       icon: "linkedin"
     },
 
@@ -81,7 +81,7 @@ export const projects: Project[] = [
 
 // Experience data for software engineering career
 export const experience: Experience[] = [
-  {
+/*  {
     id: "current-learning",
     company: "Self-Directed Learning",
     position: "Aspiring Software Engineer",
@@ -93,7 +93,7 @@ export const experience: Experience[] = [
       "Completed comprehensive programming courses",
       "Contributing to open source projects"
     ]
-  }
+  }*/
 ];
 
 export const aboutText = {
