@@ -22,17 +22,22 @@ export const personalInfo: PersonalInfo = {
   skills: [
     { name: "JavaScript", icon: "javascript" },
     { name: "TypeScript", icon: "typescript" },
-    { name: "React", icon: "react" },
     { name: "Python", icon: "python" },
     { name: "Java", icon: "java" },
     { name: "C", icon: "c" },
     { name: "C#", icon: "csharp" },
     { name: "HTML/CSS", icon: "html" },
+    { name: "MySQL", icon: "database" },
+    { name: "Next.js", icon: "nextjs" },
+    { name: "React", icon: "react" },
     { name: "Git", icon: "git" },
+    { name: "GitHub", icon: "github" },
     { name: "Node.js", icon: "nodejs" },
+    { name: "Express.js", icon: "express" },
     { name: "AWS", icon: "globe" },
     { name: "Docker", icon: "code" },
-    { name: "MySQL", icon: "database" },
+    { name: "Kubernetes", icon: "kubernetes" },
+
 
   ]
 };
