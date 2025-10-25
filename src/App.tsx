@@ -10,17 +10,17 @@ import Contact from './components/sections/Contact';
 import './App.css';
 
 const App: React.FC = () => {
-  const [blobPosition, setBlobPosition] = useState({ top: window.innerHeight * 0.25, left: 80 });
+  const [blobPosition, setBlobPosition] = useState({ top: window.innerHeight * 0.4, left: 105 });
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const basePositionRef = React.useRef({ top: window.innerHeight * 0.25, left: 80 });
+  const basePositionRef = React.useRef({ top: window.innerHeight * 0.4, left: 105 });
   const animationFrameRef = React.useRef<number | undefined>(undefined);
 
   // Calculate base position based on scroll
   const updateBasePosition = React.useCallback(() => {
     const sections = [
-      { id: 'home', side: 'right', targetLeft: 75 },
+      { id: 'home', side: 'right', targetLeft: 105 },
       { id: 'about', side: 'left', targetLeft: 15 },
-      { id: 'projects', side: 'right', targetLeft: 75 },
+      { id: 'projects', side: 'right', targetLeft: 105 },
       { id: 'contact', side: 'left', targetLeft: 15 }
     ];
 
@@ -98,6 +98,16 @@ const App: React.FC = () => {
   }, [mousePosition]);
 
   useEffect(() => {
+    // On mobile, disable scroll-based position updates for performance
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile) {
+      // Set a fixed position for mobile
+      updateBasePosition();
+      applyMouseRepulsion();
+      return;
+    }
+    
     const handleScroll = () => {
       updateBasePosition();
       applyMouseRepulsion();
@@ -109,6 +119,10 @@ const App: React.FC = () => {
   }, [updateBasePosition, applyMouseRepulsion]);
 
   useEffect(() => {
+    // Disable mouse tracking on mobile for performance
+    const isMobile = window.innerWidth <= 768;
+    if (isMobile) return;
+    
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY + window.scrollY });
     };
@@ -124,8 +138,16 @@ const App: React.FC = () => {
 
   // Continuous idle animation loop
   useEffect(() => {
+    // Reduce animation frequency on mobile
+    const isMobile = window.innerWidth <= 768;
+    const frameSkip = isMobile ? 3 : 1; // Update every 3rd frame on mobile
+    let frameCount = 0;
+    
     const animate = () => {
-      applyMouseRepulsion();
+      frameCount++;
+      if (frameCount % frameSkip === 0) {
+        applyMouseRepulsion();
+      }
       animationFrameRef.current = requestAnimationFrame(animate);
     };
     
@@ -153,7 +175,7 @@ const App: React.FC = () => {
           damping: 25,
           mass: 0.8
         }}
-        initial={{ opacity: 0, top: window.innerHeight * 0.25, left: '80%' }}
+        initial={{ opacity: 0, top: window.innerHeight * 0.4, left: '105%' }}
       />
       
       <Header />
