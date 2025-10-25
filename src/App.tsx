@@ -13,7 +13,7 @@ const App: React.FC = () => {
   const [blobPosition, setBlobPosition] = useState({ top: window.innerHeight * 0.25, left: 80 });
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const basePositionRef = React.useRef({ top: window.innerHeight * 0.25, left: 80 });
-  const animationFrameRef = React.useRef<number>();
+  const animationFrameRef = React.useRef<number | undefined>(undefined);
 
   // Calculate base position based on scroll
   const updateBasePosition = React.useCallback(() => {
