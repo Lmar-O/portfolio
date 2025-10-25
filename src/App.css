@@ -20,6 +20,8 @@ body {
   color: #1a1a1a;
   background-color: #ffffff;
   font-weight: 400;
+  position: relative;
+  overflow-x: hidden;
 }
 
 /* App Container */
@@ -27,11 +29,53 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  position: relative;
+}
+
+/* Animated Gradient Blob */
+.gradient-blob {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  z-index: 0;
+  pointer-events: none;
+  will-change: transform, top, left;
+}
+
+.gradient-blob::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(249, 115, 22, 0.8) 0%, rgba(236, 72, 153, 0.6) 50%, rgba(219, 39, 119, 0.4) 100%);
+  filter: blur(80px);
+  animation: blobFloat 6s ease-in-out infinite;
+}
+
+
+@keyframes blobFloat {
+  0%, 100% {
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  }
+  25% {
+    border-radius: 60% 40% 30% 70% / 50% 60% 40% 50%;
+  }
+  50% {
+    border-radius: 30% 70% 50% 50% / 60% 30% 70% 40%;
+  }
+  75% {
+    border-radius: 70% 30% 40% 60% / 40% 70% 50% 60%;
+  }
 }
 
 main {
   flex: 1;
   padding-top: 0; /* Remove fixed header padding */
+  position: relative;
+  z-index: 1;
 }
 
 /* Clean Typography */
@@ -82,11 +126,6 @@ a:hover {
 
 .section {
   padding: 4rem 0;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.section:last-child {
-  border-bottom: none;
 }
 
 .section-title {
@@ -141,13 +180,14 @@ a:hover {
 
 /* Card Styles */
 .card {
-  background: #ffffff;
-  border: 1px solid #f0f0f0;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(240, 240, 240, 0.5);
   transition: border-color 0.2s ease;
 }
 
 .card:hover {
-  border-color: #e0e0e0;
+  border-color: rgba(224, 224, 224, 0.7);
 }
 
 /* Loading Animation */
