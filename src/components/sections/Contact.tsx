@@ -128,7 +128,7 @@ const Contact: React.FC = () => {
             </div>
           </motion.div>
 
-          <motion.div className="contact-form-container" variants={itemVariants}>
+          {/* <motion.div className="contact-form-container" variants={itemVariants}>
             {isSubmitted ? (
               <div className="success-message">
                 <CheckCircle size={24} />
@@ -199,7 +199,7 @@ const Contact: React.FC = () => {
                 </button>
               </form>
             )}
-          </motion.div>
+          </motion.div> */}
         </div>
       </motion.div>
     </Section>
