@@ -27,7 +27,7 @@ body {
 
 @media (max-width: 768px) {
   body {
-    background: linear-gradient(to right, #ffffff 0%, #ffffff 35%, rgba(249, 115, 22, 0.35) 65%, rgba(236, 72, 153, 0.35) 100%);
+    background: radial-gradient(ellipse 100% 80% at 100% 50%, rgba(236, 72, 153, 0.4) 0%, rgba(236, 72, 153, 0.35) 20%, rgba(249, 115, 22, 0.15) 50%, rgba(249, 115, 22, 0.08) 65%, rgba(255, 255, 255, 0) 80%), #ffffff;
     background-attachment: fixed;
   }
 }
