@@ -116,7 +116,7 @@
     grid-template-columns: 1fr;
     gap: 1.5rem;
     padding: 1.5rem;
-    background: rgba(255, 255, 255, 0.9);
+    background: #ffffff;
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
     border: none;
