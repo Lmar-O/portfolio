@@ -1,15 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { 
   Mail, 
   Github, 
-  Linkedin, 
-  Send,
-  CheckCircle 
+  Linkedin
 } from 'lucide-react';
 import Section from '../ui/Section';
 import { personalInfo } from '../../data/portfolio';
-import type { ContactFormData } from '../../types';
 import './Contact.css';
 
 const socialIcons = {
@@ -18,47 +15,6 @@ const socialIcons = {
 };
 
 const Contact: React.FC = () => {
-  const [formData, setFormData] = useState<ContactFormData>({
-    name: '',
-    email: '',
-    message: ''
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!formData.name || !formData.email || !formData.message) {
-      alert('Please fill in all fields.');
-      return;
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      alert('Please enter a valid email address.');
-      return;
-    }
-
-    setIsSubmitting(true);
-
-    // Simulate form submission
-    try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      setIsSubmitted(true);
-      setFormData({ name: '', email: '', message: '' });
-    } catch (error) {
-      console.error('Form submission error:', error);
-      alert('There was an error sending your message. Please try again.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -127,79 +83,6 @@ const Contact: React.FC = () => {
               })}
             </div>
           </motion.div>
-
-          {/* <motion.div className="contact-form-container" variants={itemVariants}>
-            {isSubmitted ? (
-              <div className="success-message">
-                <CheckCircle size={24} />
-                <h3>Message sent!</h3>
-                <p>Thank you for reaching out. I'll get back to you soon.</p>
-                <button
-                  onClick={() => setIsSubmitted(false)}
-                  className="btn"
-                >
-                  Send another message
-                </button>
-              </div>
-            ) : (
-              <form className="contact-form" onSubmit={handleSubmit} name="contact" method="POST" data-netlify="true">
-                <input type="hidden" name="form-name" value="contact" />
-                
-                <div className="form-row">
-                  <div className="form-group">
-                    <label htmlFor="name">Name</label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </div>
-                  
-                  <div className="form-group">
-                    <label htmlFor="email">Email</label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </div>
-                </div>
-                
-                <div className="form-group">
-                  <label htmlFor="message">Message</label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows={5}
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-                
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="btn btn-primary submit-btn"
-                >
-                  {isSubmitting ? (
-                    'Sending...'
-                  ) : (
-                    <>
-                      <Send size={16} />
-                      Send Message
-                    </>
-                  )}
-                </button>
-              </form>
-            )}
-          </motion.div> */}
         </div>
       </motion.div>
     </Section>
