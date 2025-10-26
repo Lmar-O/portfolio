@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Github, Linkedin } from 'lucide-react';
+import { Menu, X, Github, Linkedin, Sun, Moon } from 'lucide-react';
 import { navigationItems, personalInfo } from '../../data/portfolio';
+import { useTheme } from '../../context/ThemeContext';
 import './Header.css';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,13 +42,28 @@ const Header: React.FC = () => {
   };
 
   return (
-    <motion.header
-      className={`header ${isScrolled ? 'header-scrolled' : ''}`}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6 }}
-    >
-      <div className="header-container">
+    <>
+      {/* Mobile menu overlay */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            className="mobile-menu-overlay"
+            onClick={() => setIsMobileMenuOpen(false)}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          />
+        )}
+      </AnimatePresence>
+
+      <motion.header
+        className={`header ${isScrolled ? 'header-scrolled' : ''}`}
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
+        <div className="header-container">
         {/* Left section - Logo */}
         <div className="header-left">
           <motion.a
@@ -92,6 +109,32 @@ const Header: React.FC = () => {
                 {getSocialIcon(link.icon)}
               </motion.a>
             ))}
+            
+            {/* Theme Toggle */}
+            <motion.button
+              onClick={toggleTheme}
+              className="theme-toggle"
+              whileTap={{ scale: 0.95 }}
+              aria-label="Toggle theme"
+            >
+              <motion.div 
+                className="theme-toggle-track"
+                animate={{ 
+                  backgroundColor: theme === 'dark' ? '#334155' : '#e2e8f0' 
+                }}
+                transition={{ duration: 0.3 }}
+              >
+                <motion.div
+                  className="theme-toggle-thumb"
+                  animate={{ 
+                    x: theme === 'dark' ? 20 : 0 
+                  }}
+                  transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                >
+                  {theme === 'light' ? <Sun size={14} /> : <Moon size={14} />}
+                </motion.div>
+              </motion.div>
+            </motion.button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -145,12 +188,46 @@ const Header: React.FC = () => {
                     <span>{link.platform}</span>
                   </motion.a>
                 ))}
+                
+                {/* Theme Toggle in mobile menu */}
+                <motion.div
+                  className="theme-toggle-mobile-wrapper"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: navigationItems.length * 0.1 + 0.2 }}
+                >
+                  <button
+                    onClick={toggleTheme}
+                    className="theme-toggle-mobile"
+                    aria-label="Toggle theme"
+                  >
+                    <motion.div 
+                      className="theme-toggle-track"
+                      animate={{ 
+                        backgroundColor: theme === 'dark' ? '#334155' : '#e2e8f0' 
+                      }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <motion.div
+                        className="theme-toggle-thumb"
+                        animate={{ 
+                          x: theme === 'dark' ? 20 : 0 
+                        }}
+                        transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                      >
+                        {theme === 'light' ? <Sun size={14} /> : <Moon size={14} />}
+                      </motion.div>
+                    </motion.div>
+                    <span>{theme === 'light' ? 'Light Mode' : 'Dark Mode'}</span>
+                  </button>
+                </motion.div>
               </div>
             </motion.nav>
           )}
         </AnimatePresence>
       </div>
     </motion.header>
+    </>
   );
 };
 

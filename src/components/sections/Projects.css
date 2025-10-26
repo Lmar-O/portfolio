@@ -35,6 +35,18 @@
   transform: translateY(-4px);
 }
 
+[data-theme="dark"] .project-item {
+  background: rgba(51, 65, 85, 0.4);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .project-item:hover {
+  background: rgba(51, 65, 85, 0.6);
+  border-color: rgba(148, 163, 184, 0.3);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
 .project-content {
   max-width: none;
 }
@@ -53,6 +65,10 @@
   letter-spacing: -0.01em;
 }
 
+[data-theme="dark"] .project-title {
+  color: #f1f5f9;
+}
+
 .featured-badge {
   background: #59c88d;
   color: #ffffff;
@@ -69,6 +85,10 @@
   line-height: 1.6;
   margin-bottom: 1.5rem;
   font-size: 1rem;
+}
+
+[data-theme="dark"] .project-description {
+  color: #cbd5e1;
 }
 
 .project-technologies {
