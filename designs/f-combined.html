@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lmar Oria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared/fx.css">
+<style>
+  :root { --bg:#0c0c0b; --fg:#f2efe8; --mute:#5e5c57; --soft:#a8a49b; --line:#22211f; --card:#f2efe8; --accent:#ff6b2c; --lime:#d4ff4f; --display:"Inter Tight"; --mono:"JetBrains Mono"; }
+  * { box-sizing:border-box; margin:0; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--bg); color:var(--fg); font:17px/1.6 "Inter Tight", system-ui, sans-serif; }
+  a { color:inherit; text-decoration:none; }
+  .wrap { max-width:1080px; margin:0 auto; padding:0 24px; }
+
+  /* ---------- nav + hero (from Studio) ---------- */
+  nav { position:fixed; top:0; left:0; right:0; z-index:10; padding:18px 0; background:rgba(12,12,11,.72); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); }
+  nav .wrap { display:flex; justify-content:space-between; align-items:center; }
+  nav .logo { font:800 18px var(--display); letter-spacing:-.03em; }
+  nav ul { display:flex; gap:28px; list-style:none; padding:0; font:500 15px var(--display); color:var(--soft); }
+  nav a { transition:color .35s ease; }
+  nav a:hover { color:var(--accent); }
+
+  .hero { min-height:100svh; display:flex; align-items:center; position:relative; overflow:hidden; background:var(--bg); }
+  /* animated canvas from shared/hero-bg.js */
+  .hero-bg { position:absolute; inset:0; width:100%; height:100%; display:block; filter:blur(2.5px); }  /* same depth blur as the loader */
+  /* film grain on top of the canvas, plus a fade into the page at the bottom */
+  .hero::before { content:""; position:absolute; inset:0; z-index:1; pointer-events:none; opacity:.14; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .hero::after { content:""; position:absolute; left:0; right:0; bottom:0; height:30%; z-index:1; pointer-events:none; background:linear-gradient(transparent, var(--bg)); }
+  .hero .wrap { position:relative; z-index:2; width:100%; }
+  .scroll-hint { z-index:2; }
+  .status { display:inline-flex; align-items:center; gap:10px; padding:8px 16px; border:1px solid var(--line); border-radius:99px; background:#141412; font:500 14px var(--display); color:#bdb9b0; }
+  .status i { width:7px; height:7px; border-radius:50%; background:var(--accent); animation:ping 2s infinite; }
+  @keyframes ping { 70% { box-shadow:0 0 0 8px transparent; } 0% { box-shadow:0 0 0 0 var(--accent); } }
+  h1 { margin-top:28px; font:800 clamp(52px,10vw,128px)/.95 var(--display); letter-spacing:-.045em; }
+  .role { font:700 clamp(28px,4.4vw,56px)/1.05 var(--display); letter-spacing:-.03em; color:var(--mute); margin-top:10px; }
+  .role b { color:var(--fg); font-weight:700; }
+  .hi { margin-top:28px; font-size:19px; color:var(--soft); max-width:34ch; }
+  .scroll-hint { position:absolute; bottom:28px; left:24px; font:500 14px var(--display); color:var(--mute); }
+
+  .marquee { border-block:1px solid var(--line); overflow:hidden; padding:18px 0; font:700 22px var(--display); color:var(--mute); letter-spacing:-.02em; }
+  .marquee div { display:flex; width:max-content; animation:mq 30s linear infinite; }
+  .marquee span { padding:0 20px; } .marquee span:nth-child(2n) { color:var(--accent); }
+  @keyframes mq { to { transform:translateX(-50%); } }
+
+  /* ---------- sections (from Card) ---------- */
+  section { padding-top:140px; }
+  .big { font:800 clamp(48px,7.4vw,96px)/.92 var(--display); letter-spacing:-.045em; }
+  .big .sub { display:block; color:var(--mute); }
+
+  .projects { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-top:48px; }
+  .p { position:relative; display:block; border-radius:22px; padding:28px; min-height:240px; color:#151514; overflow:hidden; transition:transform .3s cubic-bezier(.2,.7,.2,1); }
+  .p:first-child { grid-column:span 2; }
+  .p:hover { transform:translateY(-4px) rotate(-.4deg); }
+  .p.o { background:var(--accent); color:var(--on-accent,#151514); } .p.l { background:var(--lime); } .p.w { background:var(--card); }
+  .p .tag { font-size:14px; font-weight:500; opacity:.7; }
+  .p h3 { margin-top:64px; font:800 clamp(32px,4vw,44px)/1 var(--display); letter-spacing:-.04em; }
+  .p .desc { margin-top:8px; opacity:.75; }
+  .p .arrow { position:absolute; top:24px; right:24px; width:42px; height:42px; border:1.5px solid currentColor; border-radius:12px; display:grid; place-items:center; transition:transform .3s; }
+  .p:hover .arrow { transform:rotate(-45deg); }
+  .p svg.squig { position:absolute; right:-40px; bottom:-30px; width:280px; opacity:.18; }
+
+  .insta { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:48px; }
+  .insta .ph { aspect-ratio:1; border-radius:14px; }
+  .insta .ph:nth-child(3n+1){background:linear-gradient(150deg,#c9a77c,#4d3a2a)} .insta .ph:nth-child(3n+2){background:linear-gradient(200deg,#7f99a8,#26323b)} .insta .ph:nth-child(3n){background:linear-gradient(170deg,#8ea38a,#2f3b2d)}
+  .more { display:inline-block; margin-top:20px; font-size:15px; color:var(--soft); } .more:hover { color:var(--accent); }
+
+  .hi-btn { display:inline-flex; align-items:center; gap:12px; margin-top:36px; padding:18px 28px; border-radius:99px; background:var(--fg); color:var(--bg); font:700 18px var(--display); transition:background .2s; }
+  .hi-btn:hover { background:var(--accent); }
+  footer { display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px; padding:40px 0; margin-top:140px; border-top:1px solid var(--line); font-size:14px; color:var(--mute); }
+  footer a:hover { color:var(--fg); }
+
+  @media (max-width:640px) {
+    nav ul { gap:14px; }
+    .projects { grid-template-columns:1fr; } .p:first-child { grid-column:auto; }
+    .insta { grid-template-columns:repeat(2,1fr); }
+    section { padding-top:100px; }
+  }
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo" href="#">Lmar Oria</a><ul><li><a href="#built">built</a></li><li><a href="#shot">shot</a></li><li><a href="#hi">say hi</a></li></ul></div></nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="status" data-r><i></i>now: building this site</span>
+    <h1 class="blur-in">Hi! I'm Lmar.</h1>
+    <p class="role" data-r style="--d:.5s"><b>Software engineer</b> &amp; photographer.</p>
+    <p class="hi" data-r style="--d:.65s">This is where I'll put cool things I've built or made.</p>
+  </div>
+  <span class="scroll-hint">↓ scroll</span>
+</header>
+
+<div class="marquee"><div>
+  <span>software engineer</span><span>✦</span><span>photographer</span><span>✦</span><span>software engineer</span><span>✦</span><span>photographer</span><span>✦</span>
+  <span>software engineer</span><span>✦</span><span>photographer</span><span>✦</span><span>software engineer</span><span>✦</span><span>photographer</span><span>✦</span>
+</div></div>
+
+<main class="wrap">
+  <section id="built">
+    <h2 class="big" data-r>Stuff I've<span class="sub">built</span></h2>
+    <div class="projects">
+      <a class="p o" href="#" data-r><span class="tag">iOS · 2026</span><span class="arrow">→</span><h3>Project one</h3><p class="desc">one line on what it does</p>
+        <svg class="squig" viewBox="0 0 200 100"><path d="M0 80 Q 25 0 50 50 T 100 50 T 150 50 T 200 20" stroke="#151514" stroke-width="6" fill="none"/></svg></a>
+      <a class="p l" href="#" data-r><span class="tag">Web · 2025</span><span class="arrow">→</span><h3>Project two</h3><p class="desc">one line on what it does</p>
+        <svg class="squig" viewBox="0 0 200 100"><path d="M0 90 L40 20 L80 80 L120 10 L160 70 L200 0" stroke="#151514" stroke-width="6" fill="none"/></svg></a>
+      <a class="p w" href="#" data-r style="--d:.1s"><span class="tag">Tool · 2025</span><span class="arrow">→</span><h3>Project three</h3><p class="desc">one line on what it does</p></a>
+    </div>
+  </section>
+
+  <section id="shot">
+    <h2 class="big" data-r>Stuff I've<span class="sub">shot</span></h2>
+    <div id="insta" data-r>
+      <div class="insta"><div class="ph"></div><div class="ph"></div><div class="ph"></div><div class="ph"></div><div class="ph"></div><div class="ph"></div><div class="ph"></div><div class="ph"></div></div>
+    </div>
+    <a class="more" href="https://instagram.com/lmaroria" target="_blank" rel="noopener">more on @lmaroria →</a>
+  </section>
+
+  <section id="hi">
+    <h2 class="big" data-r>Say<span class="sub">hi</span></h2>
+    <a class="hi-btn" href="mailto:hello@lmaroria.com" data-r>hello@lmaroria.com <span>↗</span></a>
+  </section>
+
+  <footer><span>© 2026 Lmar Oria</span><span><a href="#">GitHub</a> · <a href="#">LinkedIn</a> · <a href="https://instagram.com/lmaroria">Instagram</a></span></footer>
+</main>
+
+<script src="shared/fx.js"></script>
+<script src="shared/insta.js"></script>
+<script src="shared/accent-tool.js"></script>
+<script src="shared/hero-bg.js"></script>
+</body>
+</html>

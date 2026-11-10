@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lmar — E: Card</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;900&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared/fx.css">
+<style>
+  :root { --bg:#151514; --fg:#f4f1ea; --mute:#5e5c57; --soft:#a8a49b; --card:#f4f1ea; --accent:#ff6b2c; --lime:#d4ff4f; --display:"Archivo"; --mono:"JetBrains Mono"; }
+  * { box-sizing:border-box; margin:0; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--bg); color:var(--fg); font:16px/1.6 Archivo, system-ui, sans-serif; }
+  a { color:inherit; text-decoration:none; }
+
+  /* floating dock */
+  .dock { position:fixed; top:18px; left:50%; transform:translateX(-50%); z-index:20; display:flex; gap:4px; padding:6px; background:rgba(30,30,28,.8); backdrop-filter:blur(12px); border:1px solid #2a2a27; border-radius:16px; }
+  .dock a { width:42px; height:42px; display:grid; place-items:center; border-radius:11px; color:var(--soft); position:relative; transition:background .2s, color .2s; }
+  .dock a:hover { background:#2a2a27; color:var(--fg); }
+  .dock a::after { content:attr(data-tip); position:absolute; top:52px; font:11px var(--mono); background:var(--fg); color:var(--bg); padding:3px 8px; border-radius:6px; opacity:0; transform:translateY(-4px); transition:.2s; pointer-events:none; white-space:nowrap; }
+  .dock a:hover::after { opacity:1; transform:none; }
+  .dock svg { width:19px; height:19px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+
+  .layout { max-width:1140px; margin:0 auto; padding:100px 24px 40px; display:grid; grid-template-columns:340px 1fr; gap:64px; }
+
+  /* sticky profile card */
+  .card { position:sticky; top:100px; align-self:start; background:var(--card); color:#151514; border-radius:22px; padding:28px; text-align:center; overflow:hidden; }
+  .card svg.arc { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+  .avatar { position:relative; width:100%; aspect-ratio:1; border-radius:16px; background:var(--accent); display:grid; place-items:center; font:900 120px/1 var(--display); color:#151514; letter-spacing:-.05em; }
+  .card h2 { position:relative; margin-top:22px; font:900 34px/1 var(--display); letter-spacing:-.03em; }
+  .card p { position:relative; margin-top:10px; color:#5e5c57; }
+  .socials { position:relative; display:flex; justify-content:center; gap:14px; margin-top:20px; }
+  .socials a { width:38px; height:38px; display:grid; place-items:center; border-radius:10px; color:var(--accent); transition:background .2s; }
+  .socials a:hover { background:#e6e1d7; }
+  .socials svg { width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+
+  /* two-tone giant type */
+  .big { font:900 clamp(48px,7.4vw,96px)/.9 var(--display); letter-spacing:-.04em; text-transform:uppercase; }
+  .big .sub { display:block; color:var(--mute); }
+  .lede { margin-top:24px; font-size:19px; color:var(--soft); max-width:32ch; }
+  .block { margin-top:120px; }
+  .block:first-child { margin-top:0; }
+
+  .projects { display:grid; gap:16px; margin-top:40px; }
+  .p { position:relative; display:block; border-radius:20px; padding:28px; min-height:200px; color:#151514; overflow:hidden; transition:transform .3s cubic-bezier(.2,.7,.2,1); }
+  .p:hover { transform:translateY(-4px) rotate(-.4deg); }
+  .p.o { background:var(--accent); } .p.l { background:var(--lime); } .p.w { background:var(--card); }
+  .p .tag { font:12px var(--mono); text-transform:uppercase; letter-spacing:.08em; opacity:.7; }
+  .p h3 { margin-top:56px; font:900 34px/1 var(--display); letter-spacing:-.03em; text-transform:uppercase; }
+  .p .desc { margin-top:8px; opacity:.75; }
+  .p .arrow { position:absolute; top:24px; right:24px; width:40px; height:40px; border:1.5px solid currentColor; border-radius:10px; display:grid; place-items:center; transition:transform .3s; }
+  .p:hover .arrow { transform:rotate(-45deg); }
+  .p svg.squig { position:absolute; right:-40px; bottom:-30px; width:260px; opacity:.18; }
+
+  .insta { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:40px; }
+  .insta .ph { aspect-ratio:1; border-radius:14px; }
+  .insta .ph:nth-child(3n+1){background:linear-gradient(150deg,#c9a77c,#4d3a2a)} .insta .ph:nth-child(3n+2){background:linear-gradient(200deg,#7f99a8,#26323b)} .insta .ph:nth-child(3n){background:linear-gradient(170deg,#8ea38a,#2f3b2d)}
+  .more { display:inline-block; margin-top:20px; font:13px var(--mono); color:var(--soft); } .more:hover { color:var(--accent); }
+
+  .hi-btn { display:inline-flex; align-items:center; gap:12px; margin-top:32px; padding:18px 28px; border-radius:99px; background:var(--fg); color:var(--bg); font:700 18px var(--display); transition:background .2s; }
+  .hi-btn:hover { background:var(--accent); }
+  footer { margin-top:100px; font:12px var(--mono); color:var(--mute); }
+
+  @media (max-width:900px) {
+    .layout { grid-template-columns:1fr; gap:56px; padding-top:90px; }
+    .card { position:relative; top:0; max-width:380px; margin:0 auto; width:100%; }
+  }
+  @media (max-width:520px) { .insta { grid-template-columns:repeat(2,1fr); } .layout { padding-left:16px; padding-right:16px; } }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></symbol>
+  <symbol id="i-cam" viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13.5" r="3.5"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+  <symbol id="i-gh" viewBox="0 0 24 24"><path d="M9 19c-4 1.5-4-2-6-2.5m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12 12 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></symbol>
+  <symbol id="i-in" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></symbol>
+</svg>
+
+<nav class="dock">
+  <a href="#top" data-tip="home"><svg><use href="#i-home"/></svg></a>
+  <a href="#built" data-tip="built"><svg><use href="#i-code"/></svg></a>
+  <a href="#shot" data-tip="shot"><svg><use href="#i-cam"/></svg></a>
+  <a href="#hi" data-tip="say hi"><svg><use href="#i-mail"/></svg></a>
+</nav>
+
+<div class="layout" id="top">
+  <aside class="card" data-r>
+    <svg class="arc" viewBox="0 0 340 520" preserveAspectRatio="none"><path d="M-20 60 Q 120 -10 200 -30" stroke="#ff6b2c" stroke-width="3" stroke-dasharray="10 9" fill="none"/><path d="M-20 300 Q 40 260 30 200" stroke="#ff6b2c" stroke-width="3" stroke-dasharray="10 9" fill="none"/></svg>
+    <div class="avatar">L</div>
+    <h2>Lmar</h2>
+    <p>Software engineer &amp; photographer.</p>
+    <div class="socials">
+      <a href="#" aria-label="GitHub"><svg><use href="#i-gh"/></svg></a>
+      <a href="https://instagram.com/lmaroria" aria-label="Instagram"><svg><use href="#i-ig"/></svg></a>
+      <a href="#" aria-label="LinkedIn"><svg><use href="#i-in"/></svg></a>
+      <a href="#hi" aria-label="Email"><svg><use href="#i-mail"/></svg></a>
+    </div>
+  </aside>
+
+  <main>
+    <div class="block">
+      <h1 class="big blur-in">Hi! I'm Lmar.</h1>
+      <p class="lede" data-r style="--d:.5s">This is where I'll put cool things I've built or made.</p>
+    </div>
+
+    <div class="block" id="built">
+      <h2 class="big" data-r>Stuff I've<span class="sub">built</span></h2>
+      <div class="projects">
+        <a class="p o" href="#" data-r><span class="tag">ios · 2026</span><span class="arrow">→</span><h3>Project one</h3><p class="desc">one line on what it does</p>
+          <svg class="squig" viewBox="0 0 200 100"><path d="M0 80 Q 25 0 50 50 T 100 50 T 150 50 T 200 20" stroke="#151514" stroke-width="6" fill="none"/></svg></a>
+        <a class="p l" href="#" data-r><span class="tag">web · 2025</span><span class="arrow">→</span><h3>Project two</h3><p class="desc">one line on what it does</p>
+          <svg class="squig" viewBox="0 0 200 100"><path d="M0 90 L40 20 L80 80 L120 10 L160 70 L200 0" stroke="#151514" stroke-width="6" fill="none"/></svg></a>
+        <a class="p w" href="#" data-r><span class="tag">tool · 2025</span><span class="arrow">→</span><h3>Project three</h3><p class="desc">one line on what it does</p></a>
+      </div>
+    </div>
+
+    <div class="block" id="shot">
+      <h2 class="big" data-r>Stuff I've<span class="sub">shot</span></h2>
+      <div id="insta" data-r>
+        <div class="insta"><div class="ph"></div><div class="ph"></div><div class="ph"></div><div class="ph"></div><div class="ph"></div><div class="ph"></div></div>
+      </div>
+      <a class="more" href="https://instagram.com/lmaroria" target="_blank" rel="noopener">more on @lmaroria →</a>
+    </div>
+
+    <div class="block" id="hi">
+      <h2 class="big" data-r>Say<span class="sub">hi</span></h2>
+      <a class="hi-btn" href="mailto:hello@lmaroria.com" data-r>hello@lmaroria.com <span>↗</span></a>
+    </div>
+
+    <footer>© 2026 lmar</footer>
+  </main>
+</div>
+
+<script src="shared/fx.js"></script>
+<script src="shared/insta.js"></script>
+</body>
+</html>

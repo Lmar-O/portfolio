@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lmar — B: Contact Sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;600;800&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#141413; --fg:#f2efe8; --mute:#7d7a72; --edge:#f5c518; }
+  * { box-sizing:border-box; margin:0; }
+  body { background:var(--bg); color:var(--fg); font:16px/1.5 "Inter Tight", system-ui, sans-serif; }
+  header { padding:64px 32px 40px; max-width:1200px; margin:0 auto; }
+  h1 { font-size:clamp(40px,7vw,88px); font-weight:800; letter-spacing:-.03em; line-height:1; }
+  h1 em { font-style:normal; color:var(--edge); }
+  .sub { margin-top:20px; font-size:18px; color:var(--mute); max-width:32ch; }
+  .sheet { max-width:1200px; margin:0 auto; padding:0 32px 80px; display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:28px 16px; }
+  .frame { position:relative; }
+  .frame .img { aspect-ratio:3/2; border-radius:2px; transition:transform .2s; }
+  .frame:hover .img { transform:scale(1.02); }
+  .frame .cap { display:flex; justify-content:space-between; margin-top:8px; font:12px "IBM Plex Mono", monospace; color:var(--mute); }
+  .frame .cap b { color:var(--edge); font-weight:400; }
+  .frame.code .img { background:#1f1f1d; border:1px solid #2c2c29; display:grid; place-items:center; font:600 20px "Inter Tight"; }
+  .frame.code .cap span:last-child { color:var(--fg); }
+  .p1{background:linear-gradient(140deg,#c9a77c,#4d3a2a)} .p2{background:linear-gradient(200deg,#7f99a8,#26323b)}
+  .p3{background:linear-gradient(170deg,#d7d2c6,#77736a)} .p4{background:linear-gradient(120deg,#a35d3a,#2c1a12)}
+  .p5{background:linear-gradient(180deg,#8ea38a,#2f3b2d)}
+  .filters { max-width:1200px; margin:0 auto 24px; padding:0 32px; display:flex; gap:8px; font:13px "IBM Plex Mono", monospace; }
+  .filters button { background:none; color:var(--mute); border:1px solid #2c2c29; padding:6px 12px; border-radius:99px; cursor:pointer; font:inherit; }
+  .filters button.on { color:var(--bg); background:var(--fg); border-color:var(--fg); }
+  footer { max-width:1200px; margin:0 auto; padding:0 32px 48px; font:13px "IBM Plex Mono", monospace; color:var(--mute); display:flex; gap:20px; }
+  footer a { color:inherit; } footer a:hover { color:var(--edge); }
+  @media (max-width:600px){ header,.sheet,.filters,footer{padding-left:16px;padding-right:16px} }
+</style>
+</head>
+<body>
+<header>
+  <h1>Hi! I'm Lmar.<br>I write code and <em>take photos.</em></h1>
+  <p class="sub">This is where I'll put cool things I've built or made.</p>
+</header>
+
+<div class="filters">
+  <button class="on" data-f="all">all</button><button data-f="code">built</button><button data-f="photo">shot</button>
+</div>
+
+<section class="sheet">
+  <a class="frame photo"><div class="img p1"></div><div class="cap"><b>01A</b><span>tokyo, 2025</span></div></a>
+  <a class="frame code"><div class="img">project one</div><div class="cap"><b>02A</b><span>ios app →</span></div></a>
+  <a class="frame photo"><div class="img p2"></div><div class="cap"><b>03A</b><span>coast</span></div></a>
+  <a class="frame photo"><div class="img p3"></div><div class="cap"><b>04A</b><span>portraits</span></div></a>
+  <a class="frame code"><div class="img">project two</div><div class="cap"><b>05A</b><span>web →</span></div></a>
+  <a class="frame photo"><div class="img p4"></div><div class="cap"><b>06A</b><span>night</span></div></a>
+  <a class="frame photo"><div class="img p5"></div><div class="cap"><b>07A</b><span>trail</span></div></a>
+  <a class="frame code"><div class="img">project three</div><div class="cap"><b>08A</b><span>tool →</span></div></a>
+</section>
+
+<footer><a href="#">github</a><a href="#">instagram</a><a href="#">email</a></footer>
+
+<script>
+  document.querySelectorAll('.filters button').forEach(b => b.onclick = () => {
+    document.querySelectorAll('.filters button').forEach(x => x.classList.toggle('on', x === b));
+    document.querySelectorAll('.frame').forEach(f => f.style.display = (b.dataset.f === 'all' || f.classList.contains(b.dataset.f)) ? '' : 'none');
+  });
+</script>
+</body>
+</html>
