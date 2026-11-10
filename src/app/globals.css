@@ -61,9 +61,14 @@ a { color: inherit; text-decoration: none; }
   background: linear-gradient(to top, var(--bg) 0, var(--bg) var(--strip-h), color-mix(in srgb, var(--bg) 70%, transparent) calc(var(--strip-h) + 9%), transparent 100%); }
 .hero .wrap { position: relative; z-index: 2; width: 100%; margin: auto; padding-top: 72px; }
 .hero h1 { font: 800 clamp(52px,10vw,128px)/.95 var(--display); letter-spacing: -.045em; }
-.role { font: 700 clamp(28px,4.4vw,56px)/1.05 var(--display); letter-spacing: -.03em; color: rgba(242,239,232,.42); margin-top: 10px; }
+.role { font: 700 clamp(28px,4.4vw,56px)/1.05 var(--display); letter-spacing: -.03em; color: var(--fg); margin-top: 10px; }
 .role b { color: var(--fg); font-weight: 700; }
-.hi { margin-top: 28px; font-size: 19px; color: var(--soft); max-width: 34ch; }
+/* light band sweeping across accent-coloured text; --sd offsets each word so they don't move in lockstep */
+.shimmer { --sc: var(--accent); background: linear-gradient(110deg, var(--sc) 0%, var(--sc) 35%, color-mix(in srgb, var(--sc) 20%, #fff) 50%, var(--sc) 65%, var(--sc) 100%) 0 0 / 200% auto;
+  -webkit-background-clip: text; background-clip: text; color: transparent; animation: shimmer 4s linear infinite; animation-delay: var(--sd, 0s); }
+.shimmer.purple { --sc: color-mix(in oklch, var(--glow-core) 70%, var(--accent)); } /* the bloom's base violet, eased toward the accent */
+@keyframes shimmer { from { background-position: 150% 50%; } to { background-position: -50% 50%; } }
+.hi { margin-top: 28px; font-size: 19px; color: var(--fg); max-width: 34ch; }
 .scroll-hint { position: relative; z-index: 2; align-self: flex-start; margin: 0 0 20px 24px; font: 500 14px var(--display); color: rgba(242,239,232,.55); }
 
 /* ========== marquee ========== */
@@ -130,7 +135,10 @@ section > :not(.bloom) { position: relative; z-index: 1; }
 .insta .ph:nth-child(3n+1) { background: linear-gradient(150deg,#c9a77c,#4d3a2a); }
 .insta .ph:nth-child(3n+2) { background: linear-gradient(200deg,#7f99a8,#26323b); }
 .insta .ph:nth-child(3n)   { background: linear-gradient(170deg,#8ea38a,#2f3b2d); }
-.insta-feed { margin-top: 48px; }
+.insta .ig { position: relative; display: block; aspect-ratio: 1; border-radius: 14px; overflow: hidden; }
+.insta .ig img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+.insta .ig:hover img { transform: scale(1.05); }
+.insta .ig-badge { position: absolute; top: 10px; right: 10px; font-size: 14px; color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,.5); }
 .more { display: inline-block; margin-top: 20px; font-size: 15px; color: var(--soft); transition: color .25s; }
 .more:hover { color: var(--accent); }
 
@@ -202,5 +210,5 @@ section > :not(.bloom) { position: relative; z-index: 1; }
   .bloom::before { animation: none; }
   .hero-glow::before { animation: none; }
   .r, .blur-in span { opacity: 1 !important; transform: none !important; filter: none !important; transition: none !important; }
-  .ld-track, .marquee > div { animation: none; }
+  .ld-track, .marquee > div, .shimmer { animation: none; }
 }

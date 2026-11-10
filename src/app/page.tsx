@@ -47,7 +47,7 @@ export default function Home() {
         <div className="hero-glow" aria-hidden="true" />
         <div className="wrap">
           <BlurIn text={`Hi! I'm ${site.firstName}.`} />
-          <p className="role r" style={{ "--d": ".5s" } as React.CSSProperties}><b>Software engineer</b> &amp; photographer.</p>
+          <p className="role r" style={{ "--d": ".5s" } as React.CSSProperties}><b>A <span className="shimmer">software engineer</span></b> &amp; <span className="shimmer purple" style={{ "--sd": "-.6s" } as React.CSSProperties}>photographer</span>.</p>
           <p className="hi r" style={{ "--d": ".65s" } as React.CSSProperties}>This is where I&apos;ll put cool things I&apos;ve built or made.</p>
         </div>
         <span className="scroll-hint">↓ scroll</span>
