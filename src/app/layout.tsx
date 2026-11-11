@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter_Tight, JetBrains_Mono } from "next/font/google";
 import { site } from "@/content/site";
-import DevTools from "@/components/DevTools";
 import "./globals.css";
 
 const display = Inter_Tight({ subsets: ["latin"], weight: ["400", "500", "700", "800"], variable: "--font-display" });
@@ -36,8 +35,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body>
         {children}
-        {/* design-time panels; dev only, not included in production builds */}
-        <DevTools />
       </body>
     </html>
   );

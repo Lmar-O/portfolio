@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { onEnter } from "@/lib/enter";
 
 // After the loader opens, fade/slide in every `.r` element (and blur in every `.blur-in`
-// headline, and grow in every `.bloom`) as it scrolls into view. Set `--d` inline on an element to delay it.
+// headline, and radially fade in every `.bloom`) as it scrolls into view. Set `--d` inline on an element to delay it.
 export default function Reveals() {
   useEffect(() => {
     let io: IntersectionObserver | undefined;

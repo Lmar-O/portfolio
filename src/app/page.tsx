@@ -1,6 +1,7 @@
 import Loader from "@/components/Loader";
 import Reveals from "@/components/Reveals";
 import Instagram from "@/components/Instagram";
+import Work from "@/components/Work";
 import { projects, site, type Project } from "@/content/site";
 
 // Splits a headline into per-letter spans so it can blur in letter by letter.
@@ -25,7 +26,13 @@ function Squiggle({ kind }: { kind: Project["squiggle"] }) {
 }
 
 export default function Home() {
-  const marquee = Array.from({ length: 4 }, () => ["software engineer", "✦", "photographer", "✦"]).flat();
+  const stack = [
+    "TypeScript", "Next.js", "React", "Node.js", "Python", "PHP",
+    "Stripe", "Docker", "Kubernetes", "AWS", "PostgreSQL", "Supabase",
+    "MySQL", "Prisma", "Tailwind CSS", "GitHub Actions",
+  ];
+  // Two copies so the -50% translate loops seamlessly.
+  const marquee = [...stack, ...stack];
 
   return (
     <>
@@ -36,6 +43,7 @@ export default function Home() {
         <div className="wrap">
           <a className="logo" href="#">{site.name}</a>
           <ul>
+            <li><a href="#worked">worked</a></li>
             <li><a href="#built">built</a></li>
             <li><a href="#shot">shot</a></li>
             <li><a href="#hi">say hi</a></li>
@@ -58,14 +66,19 @@ export default function Home() {
       </header>
 
       <main className="wrap">
+        <section id="worked">
+          <div className="bloom left-bloom" aria-hidden="true" />
+          <h2 className="big r">Where I&apos;ve<span className="sub shimmer violet" style={{ "--sd": "-.3s" } as React.CSSProperties}>worked</span></h2>
+          <Work />
+        </section>
+
         <section id="built">
           <div className="bloom side-bloom" aria-hidden="true" />
-          <h2 className="big r">Stuff I&apos;ve<span className="sub">built</span></h2>
+          <h2 className="big r">Stuff I&apos;ve<span className="sub shimmer">built</span></h2>
           <div className="projects">
             {projects.map((p, i) => (
               <a key={p.title} className={`p ${p.color} r`} href={p.href} style={{ "--d": `${(i % 2) * 0.1}s` } as React.CSSProperties}>
                 <span className="tag">{p.tag}</span>
-                <span className="arrow" aria-hidden="true">→</span>
                 <h3>{p.title}</h3>
                 <p className="desc">{p.blurb}</p>
                 <Squiggle kind={p.squiggle} />
@@ -75,22 +88,30 @@ export default function Home() {
         </section>
 
         <section id="shot">
-          <h2 className="big r">Stuff I&apos;ve<span className="sub">shot</span></h2>
+          <h2 className="big r">Stuff I&apos;ve<span className="sub shimmer purple" style={{ "--sd": "-.6s" } as React.CSSProperties}>shot</span></h2>
           <Instagram />
           <a className="more" href={site.links.instagram} target="_blank" rel="noopener noreferrer">more on @{site.instagram} →</a>
         </section>
 
         <section id="hi">
-          <h2 className="big r">Say<span className="sub">hi</span></h2>
-          <a className="hi-btn r" href={`mailto:${site.email}`}>{site.email} <span aria-hidden="true">↗</span></a>
+          {/* heading + email button on the left, social links on the right, spanning the same height */}
+          <div className="hi-row">
+            <div className="hi-main">
+              <h2 className="big r">Say<span className="sub shimmer violet" style={{ "--sd": "-1.2s" } as React.CSSProperties}>hi</span></h2>
+              <a className="hi-btn r" href={`mailto:${site.email}`}>{site.email} <span aria-hidden="true">↗</span></a>
+            </div>
+            <nav className="social r" aria-label="Social">
+              <span className="social-label">Social</span>
+              <a href={site.links.github} target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+              <a href={site.links.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
+              <a href={site.links.instagram} target="_blank" rel="noopener noreferrer">Instagram <span aria-hidden="true">↗</span></a>
+            </nav>
+          </div>
         </section>
 
         <footer className="footer">
           <div className="bloom foot-bloom" aria-hidden="true" />
           <span>© {new Date().getFullYear()} {site.name}</span>
-          <span>
-            <a href={site.links.github}>GitHub</a> · <a href={site.links.linkedin}>LinkedIn</a> · <a href={site.links.instagram}>Instagram</a>
-          </span>
         </footer>
       </main>
     </>
