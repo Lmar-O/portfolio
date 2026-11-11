@@ -9,6 +9,7 @@
   --accent: #3dd6e1;     /* site accent — cards, hovers and the loader button glow follow this */
   --on-accent: #151514;  /* text on top of the accent */
   --lime: #d4ff4f;
+  --violet: #a59cff;     /* periwinkle card, a lighter take on the footer bloom's violet */
   /* hero glow: a violet base rising into blue, cyan and a faint mint edge */
   --glow-core: #7a4dff;
   --glow-blue: #3f5cf2;
@@ -142,15 +143,25 @@ section > :not(.bloom) { position: relative; z-index: 1; }
 
 .projects { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; margin-top: 48px; }
 .p { position: relative; display: block; border-radius: 22px; padding: 28px; min-height: 240px; color: #151514; overflow: hidden; transition: transform .3s cubic-bezier(.2,.7,.2,1); }
-.p:first-child { grid-column: span 2; }
+.p:first-child, .p:last-child:nth-child(even) { grid-column: span 2; }  /* an even count would leave the last card alone, so it goes wide too */
+
+div.p:hover { transform: none; }  /* cards with no link don't lift */
+/* round dark arrow button in the bottom-right; hovering the card lifts it and nudges the arrow */
+.p-link { position: absolute; right: 20px; bottom: 20px; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%;
+  background: var(--bg); color: var(--fg); font: 700 20px var(--display); transition: transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s; }
+.p-link span { display: inline-block; transition: transform .3s cubic-bezier(.2,.7,.2,1); }
+a.p:hover .p-link { transform: translateY(-2px); box-shadow: 0 10px 24px -8px rgba(12,12,11,.55); }
+a.p:hover .p-link span { transform: translate(2px, -2px); }
+a.p .work-stack { padding-right: 64px; }  /* keeps the last row of pills clear of the corner button */
+a.p:focus-visible { outline: 2px solid var(--fg); outline-offset: 4px; }
 .p:hover { transform: translateY(-4px); }
 .p.accent { background: var(--accent); color: var(--on-accent); }
 .p.lime { background: var(--lime); }
 .p.cream { background: var(--card); }
+.p.violet { background: var(--violet); }
 .p .tag { font-size: 14px; font-weight: 500; opacity: .7; }
 .p h3 { margin-top: 64px; font: 800 clamp(32px,4vw,44px)/1 var(--display); letter-spacing: -.04em; }
 .p .desc { margin-top: 8px; opacity: .75; }
-.p .squig { position: absolute; right: -40px; bottom: -30px; width: 280px; opacity: .18; }
 
 /* ========== work: company list on the left, selected job as a card on the right ========== */
 /* the list borrows the "Say hi" social links (big text on hairlines, small label on top);
@@ -174,7 +185,7 @@ section > :not(.bloom) { position: relative; z-index: 1; }
 .work-note { margin-top: 6px; font-size: 13px; font-style: italic; opacity: .6; }
 .work-points { list-style: none; padding: 0; margin-top: 28px; display: grid; gap: 12px; font-size: 16px; line-height: 1.55; }
 .work-points li { position: relative; padding-left: 22px; opacity: .8; }
-.work-points li::before { content: "—"; position: absolute; left: 0; }
+.work-points li::before { content: ""; position: absolute; left: 4px; top: .7em; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
 .work-stack { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; padding: 0; margin-top: 28px; }
 .work-stack li { padding: 5px 12px; border: 1.5px solid currentColor; border-radius: 99px; font-size: 13px; font-weight: 500; opacity: .7; }
 /* dark pill, the "Say hi" email button flipped for a light card; hovering anywhere on the card
@@ -224,7 +235,7 @@ a.work-card:focus-visible { outline: 2px solid var(--fg); outline-offset: 4px; }
 @media (max-width: 640px) {
   .nav ul { gap: 14px; }
   .projects { grid-template-columns: 1fr; }
-  .p:first-child { grid-column: auto; }
+  .p:first-child, .p:last-child:nth-child(even) { grid-column: auto; }
   .insta { grid-template-columns: repeat(2,1fr); }
   section { padding-top: 100px; }
   /* list stacks above the card, full-width rows like the social links */

@@ -2,7 +2,7 @@ import Loader from "@/components/Loader";
 import Reveals from "@/components/Reveals";
 import Instagram from "@/components/Instagram";
 import Work from "@/components/Work";
-import { projects, site, type Project } from "@/content/site";
+import { projects, site } from "@/content/site";
 
 // Splits a headline into per-letter spans so it can blur in letter by letter.
 function BlurIn({ text }: { text: string }) {
@@ -12,16 +12,6 @@ function BlurIn({ text }: { text: string }) {
         <span key={i} aria-hidden="true" style={{ "--i": i } as React.CSSProperties}>{c}</span>
       ))}
     </h1>
-  );
-}
-
-function Squiggle({ kind }: { kind: Project["squiggle"] }) {
-  if (!kind) return null;
-  const d = kind === "wave" ? "M0 80 Q 25 0 50 50 T 100 50 T 150 50 T 200 20" : "M0 90 L40 20 L80 80 L120 10 L160 70 L200 0";
-  return (
-    <svg className="squig" viewBox="0 0 200 100" aria-hidden="true">
-      <path d={d} stroke="#151514" strokeWidth="6" fill="none" />
-    </svg>
   );
 }
 
@@ -76,14 +66,25 @@ export default function Home() {
           <div className="bloom side-bloom" aria-hidden="true" />
           <h2 className="big r">Stuff I&apos;ve<span className="sub shimmer">built</span></h2>
           <div className="projects">
-            {projects.map((p, i) => (
-              <a key={p.title} className={`p ${p.color} r`} href={p.href} style={{ "--d": `${(i % 2) * 0.1}s` } as React.CSSProperties}>
-                <span className="tag">{p.tag}</span>
-                <h3>{p.title}</h3>
-                <p className="desc">{p.blurb}</p>
-                <Squiggle kind={p.squiggle} />
-              </a>
-            ))}
+            {projects.map((p, i) => {
+              const body = (
+                <>
+                  <span className="tag">{p.tag}</span>
+                  <h3>{p.title}</h3>
+                  <p className="desc">{p.blurb}</p>
+                  {p.note && <p className="work-note">{p.note}</p>}
+                  {p.points && <ul className="work-points">{p.points.map((pt, j) => <li key={j}>{pt}</li>)}</ul>}
+                  {p.stack && <ul className="work-stack">{p.stack.map((s) => <li key={s}>{s}</li>)}</ul>}
+                  {p.href && <span className="p-link" aria-hidden="true"><span>↗</span></span>}
+                </>
+              );
+              const props = { className: `p ${p.color} r`, style: { "--d": `${(i % 2) * 0.1}s` } as React.CSSProperties };
+              return p.href ? (
+                <a key={p.title} {...props} href={p.href} target="_blank" rel="noopener noreferrer">{body}</a>
+              ) : (
+                <div key={p.title} {...props}>{body}</div>
+              );
+            })}
           </div>
         </section>
 
