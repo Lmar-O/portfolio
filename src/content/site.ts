@@ -103,6 +103,20 @@ export const projects: Project[] = [
     ],
   },
   {
+    title: "Trackajob",
+    blurb: "A Chrome extension that logs the jobs you apply to in one click, with the details already filled in.",
+    tag: "Chrome extension · 2026",
+    href: "https://github.com/Lmar-O/Trackajob",
+    color: "cream",
+    stack: ["JavaScript", "Chrome Extensions (MV3)", "Vitest"],
+    points: [
+      "Reads the title, company, locations, workplace type and pay range straight off the posting, ranking schema.org JSON-LD over platform-specific parsers for Greenhouse, Lever, Ashby, Workday, Workable, Amazon, LinkedIn and Indeed.",
+      "Salary parser handles ranges, k-shorthand, currencies and hourly-to-yearly periods, while rejecting look-alikes like \"5–10 years of experience\" or \"401k\".",
+      "Optional auto-capture follows single-page job boards as they navigate, and a dashboard tracks status from applied to offer, flags ghosted applications after 60 days, shows daily pace and exports to CSV.",
+      "Everything stays in local browser storage, backed by a 194-test suite running against real job-page fixtures.",
+    ],
+  },
+  {
     title: "Docker Weather App",
     blurb: "A Flask weather app, containerized and deployed to a local Kubernetes cluster.",
     tag: "DevOps · 2025",
