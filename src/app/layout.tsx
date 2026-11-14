@@ -1,10 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Inter_Tight, JetBrains_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import { site } from "@/content/site";
 import "./globals.css";
 
-const display = Inter_Tight({ subsets: ["latin"], weight: ["400", "500", "700", "800"], variable: "--font-display" });
-const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-mono" });
+// Self-hosted (latin variable fonts from Google Fonts, OFL) so the build never has to
+// reach Google: next/font/google failed on Netlify's build servers.
+const display = localFont({ src: "./fonts/InterTight-latin.woff2", weight: "400 800", variable: "--font-display", fallback: ["system-ui", "sans-serif"] });
+const mono = localFont({ src: "./fonts/JetBrainsMono-latin.woff2", weight: "400 500", variable: "--font-mono", fallback: ["ui-monospace", "monospace"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://lmaroria.com"),
