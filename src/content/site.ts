@@ -62,6 +62,19 @@ export type Project = {
 // The first project gets the wide card at the top (and the last one too, if it would sit alone).
 export const projects: Project[] = [
   {
+    title: "MechExpo",
+    blurb: "Interactive 3D engine-maintenance lessons you can orbit, zoom and click through step by step.",
+    tag: "Web · 3D · 2026",
+    href: "/mechexpo/",
+    color: "lime",
+    stack: ["React", "TypeScript", "Three.js", "React Three Fiber", "GSAP", "Vitest"],
+    points: [
+      "Lesson 1 walks through an oil and filter change on a turbocharged inline-four that's modeled entirely in code, where every part can be animated, faded, highlighted and clicked for info.",
+      "Each lesson compiles into one paused GSAP timeline, so you can play, pause, scrub or jump straight to any step.",
+      "Jumping is deterministic: tweens start from a simulated pose rather than the live scene, so a step looks the same whether you played there or skipped there, and the test suite checks this.",
+    ],
+  },
+  {
     title: "Phishing Email Detection",
     blurb: "Classifying phishing emails from their text alone, classical ML vs. a fine-tuned transformer.",
     tag: "ML · NLP · 2026",
