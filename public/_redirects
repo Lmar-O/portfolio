@@ -1,3 +1,5 @@
-# MechExpo lives on its own Netlify site; proxy it so it shows at lmaroria.com/mechexpo
-/mechexpo     /mechexpo/                                    301
+# MechExpo lives on its own Netlify site; proxy it (200) so it shows at lmaroria.com/mechexpo.
+# Don't add a /mechexpo -> /mechexpo/ redirect here: Netlify ignores the trailing slash
+# when matching rules, so it would match /mechexpo/ too and loop forever.
+/mechexpo     https://mechexpo.netlify.app/mechexpo/        200
 /mechexpo/*   https://mechexpo.netlify.app/mechexpo/:splat  200
